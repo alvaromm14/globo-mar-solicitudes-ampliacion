@@ -31,7 +31,7 @@
   let xRotation = spring(0, { stiffness: 0.08, damping: 0.4 });
   let yRotation = spring(0, { stiffness: 0.1, damping: 0.7 });
 
-  let degreesPerFrame = 0.5;
+  let degreesPerFrame = 0.35;
 
   const t = timer((elapsed) => {
     if (dragging || tooltipData) return;
@@ -230,7 +230,7 @@
       active={highlightApprovedProposals}
       onToggle={handleToggleApprovedProposals}
       label="Ver aprobadas"
-      activeColor="#2e6ecf"
+      activeColor="#ffdd82"
     />
     <ToggleButton active={highlightECS} onToggle={handleToggle} />
   </div>
@@ -266,7 +266,7 @@
                 "Propuesta aprobada total o parcialmente" ||
                 cl.properties?.POL_TYPE ===
                   "Propuesta conjunta aprobada total o parcialmente")
-            ? "#2e6ecf"
+            ? "#ffdd82"
             : "#76a7f0"}
         stroke="white"
         stroke-width="0.2"
@@ -292,10 +292,11 @@
     {#each countries as c}
       <path
         d={path(c)}
-        fill={countryToISO[selectedClaimCountry] === String(c.id) // o c.properties.id
+        fill={countryToISO[selectedClaimCountry] === String(c.id)
           ? "#555555"
           : "#cccccc"}
         stroke="#cccccc"
+              on:click={() => (tooltipData = null)}
       />
     {/each}
 
