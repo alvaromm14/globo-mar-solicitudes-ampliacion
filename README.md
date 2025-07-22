@@ -1,0 +1,1 @@
+Globo interactivo con las solicitudes de ampliación de la plataforma continental.
