@@ -254,7 +254,16 @@
 
     {#each claimsFeatures as cl, i (i)}
       <path
-        class="claims"
+        class="claims {highlightApprovedProposals &&
+     selectedClaimCountry &&
+     (cl.properties?.POL_TYPE === 'Propuesta aprobada total o parcialmente' ||
+      cl.properties?.POL_TYPE === 'Propuesta aprobada y registrada' ||
+      cl.properties?.POL_TYPE === 'Propuesta conjunta aprobada y registrada' ||
+      cl.properties?.POL_TYPE === 'Propuesta conjunta aprobada total o parcialmente') &&
+     [...Array(8).keys()].some(i => cl.properties?.[`SOVEREIGN${i + 1}`] === selectedClaimCountry)
+      ? 'highlight-approved-border'
+      : ''}"
+        
         d={path(cl)}
         fill={selectedClaimCountry &&
         [...Array(8).keys()].some(
@@ -264,6 +273,10 @@
           : highlightApprovedProposals &&
               (cl.properties?.POL_TYPE ===
                 "Propuesta aprobada total o parcialmente" ||
+                cl.properties?.POL_TYPE ===
+                "Propuesta aprobada y registrada" ||
+                cl.properties?.POL_TYPE ===
+                "Propuesta conjunta aprobada y registrada" ||
                 cl.properties?.POL_TYPE ===
                   "Propuesta conjunta aprobada total o parcialmente")
             ? "#ffdd82"
@@ -367,7 +380,9 @@
   .claims-color {
     background-color: #76a7f0;
   }
-  .approved-proposal-color {
-    background-color: #28a745; /* verde tipo "aprobado" */
-  }
+
+  .highlight-approved-border {
+  stroke: #ffdd82;
+  stroke-width: 2;
+}
 </style>
